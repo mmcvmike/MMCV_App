@@ -1,0 +1,12 @@
+{
+  "expo": {
+    "name": "MMCV_App",
+    "slug": "MMCV_App",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  },
+  "name": "MMCV_App",
+  "displayName": "MMCV_App"
+}
