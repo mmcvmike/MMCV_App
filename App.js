@@ -118,9 +118,6 @@
 
 
 
-
-
-
 import React, { useEffect } from 'react';
 import { View, Text, Button, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
@@ -128,7 +125,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { WebView } from 'react-native-webview';
 
 const styles = StyleSheet.create({
-  homeScreen:{
+  homeScreen: {
     alignContent: "center",
     alignItems: "center",
     padding: 8
@@ -162,7 +159,7 @@ const styles = StyleSheet.create({
   },
 
   homeScreenBody: {
-    flexDirection: 'row', 
+    flexDirection: 'row',
     flexWrap: 'wrap',
     borderWidth: 1,
     borderColor: "thistle",
@@ -223,47 +220,52 @@ const styles = StyleSheet.create({
 
 const Stack = createStackNavigator();
 
-function HomeScreen({navigation}) {
+function HomeScreen({ navigation }) {
+
+  let data = [
+    {
+      title: "SMT",
+      navigationName: "SMT",
+      displayName: "Zone SMT"
+    },
+    {
+      title: "Backend",
+      navigationName: "Backend",
+      displayName: "Zone Back-end"
+    },
+    {
+      title: "QC",
+      navigationName: "Quality",
+      displayName: "QC"
+    },
+    {
+      title: "Checksheet",
+      navigationName: "Checksheet",
+      displayName: "E-Checksheet"
+    },
+  ];
+
+  const listArea = data.map((ele) => {
+    return (
+      <TouchableOpacity style={styles.buttonContainter}>
+        <Text
+          title={ele.title}
+          onPress={() => navigation.navigate(ele.navigationName)}
+          style={styles.button}
+        >
+          {ele.displayName}
+        </Text>
+      </TouchableOpacity>
+    )
+  })
+
   return (
     <View style={styles.homeScreen}>
       <Text style={styles.titleText}>
         Please chose your screen
       </Text>
       <View style={styles.homeScreenBody}>
-        <TouchableOpacity style={styles.buttonContainter}>
-          <Text
-            onPress={() => navigation.navigate("SMT")}
-            style={styles.button}
-          >
-            Zone SMT
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.buttonContainter}>
-          <Text
-            onPress={() => navigation.navigate("Backend")}
-            style={styles.button}
-          >
-            Zone Back-end
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.buttonContainter}>
-          <Text
-            title="QC"
-            onPress={() => navigation.navigate("Quality")}
-            style={styles.button}
-          >
-            QC
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.buttonContainter}>
-          <Text
-            title="Checksheet"
-            onPress={() => navigation.navigate("Checksheet")}
-            style={styles.button}
-          >
-            Checksheet
-          </Text>
-        </TouchableOpacity>
+        {listArea}
       </View>
       <Text style={styles.footerText}>
         MMCV IT Application Center
@@ -309,30 +311,50 @@ function QualityScreen() {
 }
 
 function ChecksheetScreen() {
-    return (
-        <WebView
-            source={{
-                uri: 'http://mvswas01.mmcv.mekjpn.ngnet/checksheet',
-                // uri: 'http://10.80.24.57/checksheet',
-            }}
-            style={{ marginTop: 0 }}
-        />
-    );
+  return (
+    <WebView
+      source={{
+        uri: 'http://mvswas01.mmcv.mekjpn.ngnet/checksheet',
+        // uri: 'http://10.80.24.57/checksheet',
+      }}
+      style={{ marginTop: 0 }}
+    />
+  );
 }
 
 export default function App() {
+
+  let data = [
+    {
+      name: "SMT",
+      componentName: "EBuyoffSMTScreen"
+    },
+    {
+      name: "Backend",
+      componentName: "EBuyoffBackendScreen"
+    },
+    {
+      name: "Quality",
+      componentName: "QualityScreen"
+    },
+    {
+      name: "Checksheet",
+      componentName: "ChecksheetScreen"
+    }
+  ]
+
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen 
+        <Stack.Screen
           name="MMCV E-Buyoff System"
-          component={HomeScreen} 
-          style={{alignItems: 'center', color: 'red'}}
+          component={HomeScreen}
+          style={{ alignItems: 'center', color: 'red' }}
         />
-        <Stack.Screen 
-          name="SMT" 
-          component={EBuyoffSMTScreen} 
-          options={({navigation}) => ({
+        <Stack.Screen
+          name="SMT"
+          component={EBuyoffSMTScreen}
+          options={({ navigation }) => ({
             headerRight: () => (
               <Button
                 title="MMCV IT Application center"
@@ -340,12 +362,12 @@ export default function App() {
               />
             ),
           })}
-          style={{alignItems: 'center'}} 
+          style={{ alignItems: 'center' }}
         />
-        <Stack.Screen 
-          name="Backend" 
-          component={EBuyoffBackendScreen} 
-          options={({navigation}) => ({
+        <Stack.Screen
+          name="Backend"
+          component={EBuyoffBackendScreen}
+          options={({ navigation }) => ({
             headerRight: () => (
               <Button
                 title="MMCV IT Application center"
@@ -353,12 +375,12 @@ export default function App() {
               />
             ),
           })}
-          style={{alignItems: 'center'}} 
+          style={{ alignItems: 'center' }}
         />
-        <Stack.Screen 
-          name="Quality" 
-          component={QualityScreen} 
-          options={({navigation}) => ({
+        <Stack.Screen
+          name="Quality"
+          component={QualityScreen}
+          options={({ navigation }) => ({
             headerRight: () => (
               <Button
                 title="MMCV IT Application center"
@@ -367,10 +389,10 @@ export default function App() {
             ),
           })}
         />
-         <Stack.Screen 
-          name="Checksheet" 
-          component={ChecksheetScreen} 
-          options={({navigation}) => ({
+        <Stack.Screen
+          name="Checksheet"
+          component={ChecksheetScreen}
+          options={({ navigation }) => ({
             headerRight: () => (
               <Button
                 title="MMCV IT Application center"
